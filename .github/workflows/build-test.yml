@@ -7,6 +7,7 @@ on:
     push:
         branches:
             - php8
+            - test-ci
 
 permissions:
     contents: read
@@ -35,6 +36,8 @@ jobs:
                 run: |
                     sudo mkdir -p /opt/v8/self-built/{lib,include}
                     sudo chown -R $(id -u):$(id -g) /opt/v8/self-built
+                    sudo ls -lisat /opt/v8/self-built/*
+                    sudo tree /opt/v8/self-built
 
             -   name: Restore cache v8 ${{ matrix.v8-versions }} build
                 id: v8-build-cache
@@ -42,6 +45,11 @@ jobs:
                 with:
                     path: /opt/v8/self-built
                     key: ${{ runner.os }}-${{ matrix.v8-versions }}-v8-build
+
+            -   name: Debug cache folder v8 ${{ matrix.v8-versions }}
+                run: |
+                    sudo ls -lisat /opt/v8/self-built/*
+                    sudo tree /opt/v8/self-built
 
             -   name: Setup Google depot tools
                 # only needed, when v8 needs to be built
@@ -95,6 +103,9 @@ jobs:
                     # Go back to origin
                     cd "${GITHUB_WORKSPACE}"
 
+                    sudo ls -lisat /opt/v8/self-built/*
+                    sudo tree /opt/v8/self-built
+
             -   name: Save v8 ${{ matrix.v8-versions }} build cache
                 if: steps.v8-build-cache.outputs.cache-hit != 'true'
                 uses: actions/cache/save@v4
@@ -142,6 +153,8 @@ jobs:
 
             -   name: Build extension
                 run: |
+                    sudo ls -lisat /opt/v8/self-built/*
+                    sudo tree /opt/v8/self-built
                     phpize
                     ./configure --with-v8js=/opt/v8/self-built LDFLAGS="-lstdc++" CPPFLAGS="-DV8_COMPRESS_POINTERS -DV8_ENABLE_SANDBOX"
                     make
