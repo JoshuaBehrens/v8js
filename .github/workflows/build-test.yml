@@ -36,6 +36,7 @@ jobs:
                 run: |
                     sudo mkdir -p /opt/v8/self-built/{lib,include}
                     sudo chown -R $(id -u):$(id -g) /opt/v8/self-built
+                    if [ "$RUNNER_OS" == "macOS" ]; then brew install tree; fi
                     sudo ls -lisat /opt/v8/self-built/*
                     sudo tree /opt/v8/self-built
 
@@ -48,6 +49,7 @@ jobs:
 
             -   name: Debug cache folder v8 ${{ matrix.v8-versions }}
                 run: |
+                    if [ "$RUNNER_OS" == "macOS" ]; then brew install tree; fi
                     sudo ls -lisat /opt/v8/self-built/*
                     sudo tree /opt/v8/self-built
 
@@ -103,6 +105,7 @@ jobs:
                     # Go back to origin
                     cd "${GITHUB_WORKSPACE}"
 
+                    if [ "$RUNNER_OS" == "macOS" ]; then brew install tree; fi
                     sudo ls -lisat /opt/v8/self-built/*
                     sudo tree /opt/v8/self-built
 
@@ -153,6 +156,7 @@ jobs:
 
             -   name: Build extension
                 run: |
+                    if [ "$RUNNER_OS" == "macOS" ]; then brew install tree; fi
                     sudo ls -lisat /opt/v8/self-built/*
                     sudo tree /opt/v8/self-built
                     phpize
