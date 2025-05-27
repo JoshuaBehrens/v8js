@@ -29,7 +29,9 @@ if test "$PHP_V8JS" != "no"; then
       if test -r "$i/$PHP_LIBDIR/$SEARCH_FOR" -a -r "$i/include/$libname/v8.h"; then
         V8_INCLUDE_DIR="$i/include/$libname"
         V8_LIBRARY_DIR="$i/$PHP_LIBDIR"
-        AC_MSG_RESULT(found in $i/{include/$libname,$PHP_LIBDIR})
+        AC_MSG_RESULT(found in $i)
+        AC_MSG_RESULT( headers found in $i/include/$libname)
+        AC_MSG_RESULT( library found in $i/$PHP_LIBDIR)
         break 2
       fi
 
@@ -37,7 +39,9 @@ if test "$PHP_V8JS" != "no"; then
       if test -r "$i/$PHP_LIBDIR/$ARCH-linux-gnu/$SEARCH_FOR"; then
         V8_INCLUDE_DIR="$i/include/$libname"
         V8_LIBRARY_DIR="$i/$PHP_LIBDIR/$ARCH-linux-gnu"
-        AC_MSG_RESULT(found in $i/{include/$libname,$PHP_LIBDIR/$ARCH-linux-gnu})
+        AC_MSG_RESULT(found in $i)
+        AC_MSG_RESULT( headers found in $i/include/$libname)
+        AC_MSG_RESULT( library found in $i/$PHP_LIBDIR/$ARCH-linux-gnu)
         break 2
       fi
 
@@ -45,7 +49,9 @@ if test "$PHP_V8JS" != "no"; then
       if test -r "$i/$PHP_LIBDIR/$SEARCH_FOR" -a -r "$i/include/libplatform/libplatform.h"; then
         V8_INCLUDE_DIR="$i/include"
         V8_LIBRARY_DIR="$i/$PHP_LIBDIR"
-        AC_MSG_RESULT(found in $i/{include,$PHP_LIBDIR})
+        AC_MSG_RESULT(found in $i)
+        AC_MSG_RESULT( headers found in $i/include)
+        AC_MSG_RESULT( library found in $i/$PHP_LIBDIR)
         break 2
       fi
     done
