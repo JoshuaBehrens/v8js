@@ -5,7 +5,8 @@ if test "$PHP_V8JS" != "no"; then
   SEARCH_PATH="/usr/local /usr"
 
   for libname in v8 node; do
-    SEARCH_FOR="lib$libname.$SHLIB_SUFFIX_NAME"
+    V8_LIBNAME="lib$libname"
+    SEARCH_FOR="$V8_LIBNAME.$SHLIB_SUFFIX_NAME"
 
     if test -d "$PHP_V8JS"; then
       SEARCH_PATH="$PHP_V8JS"
@@ -144,7 +145,9 @@ if test "$PHP_V8JS" != "no"; then
 
     V8_CHECK_LINK([], [], [], [
       V8_CHECK_LINK([-lv8_libbase], [], [], [
-        AC_MSG_ERROR([could not find libv8_libplatform library])
+        V8_CHECK_LINK([-l$V8_LIBNAME], [], [], [
+          AC_MSG_ERROR([could not find libv8_libplatform library])
+        ])
       ])
     ])
   fi
