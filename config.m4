@@ -132,6 +132,9 @@ if test "$PHP_V8JS" != "no"; then
     AC_DEFUN([V8_CHECK_LINK], [
       save_LIBS="$LIBS"
       LIBS="$LIBS $1 -lv8_libplatform -lv8"
+
+      AC_MSG_RESULT(Testing $1 (Libs: $LIBS ; LDFLAGS: $LDFLAGS ; CPPFLAGS: $CPPFLAGS ; V8_LIBNAME: $V8_LIBNAME ) )
+
       AC_LINK_IFELSE([AC_LANG_PROGRAM([
         #include <libplatform/libplatform.h>
       ], [ v8::platform::NewDefaultPlatform(); ])], [
