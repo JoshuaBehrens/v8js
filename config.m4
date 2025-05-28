@@ -148,8 +148,10 @@ if test "$PHP_V8JS" != "no"; then
 
     V8_CHECK_LINK([], [], [], [
       V8_CHECK_LINK([-lv8_libbase], [], [], [
-        V8_CHECK_LINK([-l$V8_LIBNAME], [], [], [
-          AC_MSG_ERROR([could not find libv8_libplatform library])
+        V8_CHECK_LINK([-llibv8_libplatform], [], [], [
+          V8_CHECK_LINK([-l$V8_LIBNAME], [], [], [
+            AC_MSG_ERROR([could not find libv8_libplatform library])
+          ])
         ])
       ])
     ])
