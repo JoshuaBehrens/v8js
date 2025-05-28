@@ -141,9 +141,12 @@ if test "$PHP_V8JS" != "no"; then
         dnl libv8_libplatform.so found
         AC_MSG_RESULT(found)
         V8JS_SHARED_LIBADD="$1 -lv8_libplatform $V8JS_SHARED_LIBADD"
-          $3
-      ], [ $4 ])
-      LIBS="$save_LIBS"
+        LIBS="$save_LIBS"
+        $3
+      ], [
+        LIBS="$save_LIBS"
+        $4
+      ])
     ])
 
     V8_CHECK_LINK([], [], [], [
