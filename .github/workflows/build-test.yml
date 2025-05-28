@@ -160,7 +160,7 @@ jobs:
                     sudo ls -lisat /opt/v8/self-built/*
                     sudo tree /opt/v8/self-built
                     phpize
-                    ./configure --verbose --with-v8js=/opt/v8/self-built LDFLAGS="-lstdc++" CPPFLAGS="-DV8_COMPRESS_POINTERS -DV8_ENABLE_SANDBOX" || (cat config.log && exit 1)
+                    ./configure --verbose --with-v8js=/opt/v8/self-built LDFLAGS="-lstdc++ --verbose" CPPFLAGS="-DV8_COMPRESS_POINTERS -DV8_ENABLE_SANDBOX" || (cat config.log && exit 1)
                     make
                     make test
 
@@ -192,7 +192,7 @@ jobs:
             -   name: Build extension
                 run: |
                     phpize
-                    ./configure --verbose || (cat config.log && exit 1)
+                    ./configure --verbose LDFLAGS="--verbose" || (cat config.log && exit 1)
                     make
                     make test
                 shell: alpine.sh {0}
@@ -238,7 +238,7 @@ jobs:
             -   name: Build extension
                 run: |
                     phpize
-                    ./configure --verbose --with-v8js=/opt/homebrew CPPFLAGS="-DV8_COMPRESS_POINTERS -DV8_ENABLE_SANDBOX" || (cat config.log && exit 1)
+                    ./configure --verbose LDFLAGS="--verbose" --with-v8js=/opt/homebrew CPPFLAGS="-DV8_COMPRESS_POINTERS -DV8_ENABLE_SANDBOX" || (cat config.log && exit 1)
                     make
                     make test
 
